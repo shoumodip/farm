@@ -75,7 +75,11 @@ window.onload = () => {
 
     // Cotton
     ctx.beginPath()
-    ctx.arc(size * 0.11, size * 0.11, size * 0.05, 0, 2 * Math.PI)
+    if (picking) {
+      ctx.arc(size * 0.11, size * 0.11, size * 0.06, 0, 2 * Math.PI)
+    } else {
+      ctx.arc(size * 0.11, size * 0.11, size * 0.05, 0, 2 * Math.PI)
+    }
     ctx.closePath()
 
     ctx.fillStyle = "#FDF3EA"
