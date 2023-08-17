@@ -71,6 +71,18 @@ function drawGame() {
   game.ctx.fillStyle = "#388004"
   game.ctx.fillRect(0, game.app.height * 0.8, game.app.width, game.app.height * 0.2)
 
+  if (game.notify) {
+    game.ctx.font = game.size * 0.08 + "px Serif"
+
+    const width = game.ctx.measureText(game.notify).width
+
+    game.ctx.fillStyle = "#282828"
+    game.ctx.fillRect(game.app.width - width * 1.08, game.size * 0.02, width * 1.06, game.size * 0.2)
+
+    game.ctx.fillStyle = "#FFFFFF"
+    game.ctx.fillText(game.notify, game.app.width - width * 1.055, game.size * 0.15)
+  }
+
   game.ctx.font = game.size * 0.12 + "px Serif"
   game.ctx.fillStyle = "#000000"
   game.ctx.fillText(game.cotton, game.size * 0.2, game.size * 0.15)
@@ -110,6 +122,8 @@ function pickCotton() {
 
     if (game.cotton == 50) {
       game.master = true
+      pushNotify("Master aquired!")
+
       setInterval(() => {
         game.beating = true
         pickCotton()
@@ -117,6 +131,16 @@ function pickCotton() {
       }, 1000)
     }
   }
+}
+
+function pushNotify(s) {
+  game.notify = s
+  drawGame()
+
+  setTimeout(() => {
+    game.notify = ""
+    drawGame()
+  }, 4000)
 }
 
 window.onload = () => {
@@ -144,4 +168,5 @@ window.onload = () => {
   }
 
   window.onresize()
+  setTimeout(() => pushNotify("Click on the man to pick cotton"), 500)
 }
